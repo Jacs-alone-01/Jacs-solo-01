@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="H.Comunicactivas.css">
+  <title>Consejos de Comunicación - Jacsnoalone</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    
+</head>
+<body class="bg-gradient-to-br from-blue-50 to-gray-100 font-sans relative font-[Poppins]">
+  <!-- Fondo Animado -->
+  <canvas id="backgroundCanvas"></canvas>
+  <script>
+    const bgCanvas = document.getElementById('backgroundCanvas');
+    const bgCtx = bgCanvas.getContext('2d');
+    bgCanvas.width = window.innerWidth;
+    bgCanvas.height = window.innerHeight;
+
+    const particles = [];
+    for (let i = 0; i < 50; i++) {
+      particles.push({
+        x: Math.random() * bgCanvas.width,
+        y: Math.random() * bgCanvas.height,
+        radius: Math.random() * 3 + 1,
+        vx: Math.random() * 0.5 - 0.25,
+        vy: Math.random() * 0.5 - 0.25
+      });
+    }
+
+    function animateBackground() {
+      bgCtx.clearRect(0, 0, bgCanvas.width, bgCanvas.height);
+      particles.forEach(p => {
+        p.x += p.vx;
+        p.y += p.vy;
+        if (p.x < 0 || p.x > bgCanvas.width) p.vx *= -1;
+        if (p.y < 0 || p.y > bgCanvas.height) p.vy *= -1;
+
+        bgCtx.beginPath();
+        bgCtx.arc(p.x, p.y, p.radius, 0, 2 * Math.PI);
+        bgCtx.fillStyle = 'rgba(59, 130, 246, 0.7)';
+        bgCtx.fill();
+      });
+      requestAnimationFrame(animateBackground);
+    }
+    animateBackground();
+  </script>
+
+  <!-- Menú Circular Flotante -->
+  <div class="fixed top-4 right-4 z-20">
+    <div class="relative">
+      <button id="menuToggle" class="bg-blue-600 text-white p-4 rounded-full shadow-lg pulse" aria-label="Abrir menú de navegación">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+      </button>
+      <div id="menuItems" class="hidden absolute top-12 right-0 flex flex-col space-y-2">
+        <a href="oratoria.html" class="menu-button bg-blue-500 text-white p-3 rounded-full shadow-md flex items-center">
+          <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path></svg>
+          Oratoria
+        </a>
+        <a href="gestion-tiempo.html" class="menu-button bg-blue-500 text-white p-3 rounded-full shadow-md flex items-center">
+          <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+          Gestión del Tiempo
+        </a>
+        <a href="habilidades-generales.html" class="menu-button bg-blue-500 text-white p-3 rounded-full shadow-md flex items-center">
+          <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8h2a2 2 0 012 2v6a2 2 0 01-2 2h-2m-4-8v8m-4-8h2a2 2 0 012 2v6a2 2 0 01-2 2h-2"></path></svg>
+          Habilidades Generales
+        </a>
+        <a href="contacto.html" class="menu-button bg-blue-500 text-white p-3 rounded-full shadow-md flex items-center">
+          <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
+          Contacto
+        </a>
+      </div>
+    </div>
+    <script>
+      document.getElementById('menuToggle').addEventListener('click', () => {
+        const menuItems = document.getElementById('menuItems');
+        menuItems.classList.toggle('hidden');
+      });
+    </script>
+  </div>
+
+  <!-- Encabezado -->
+  <header class="text-center py-16">
+    <div class="container mx-auto">
+      <h1 class="text-4xl md:text-5xl font-bold text-blue-800 mb-4">Domina tus Habilidades de Comunicación</h1>
+      <p class="text-lg md:text-xl text-gray-600">Consejos prácticos para hablar con confianza, gestionar tu tiempo y conectar con tu audiencia.</p>
+    </div>
+  </header>
+
+  <!-- Mapa Mental con Diseño de Nubes -->
+  <section class="container mx-auto py-12 px-4">
+    <h2 class="text-3xl font-semibold text-gray-800 mb-6 text-center">Mapa Mental: Habilidades Comunicativas</h2>
+    <canvas id="mindMap" width="800" height="500" class="mx-auto" aria-label="Mapa mental interactivo de habilidades comunicativas"></canvas>
+    <p class="text-gray-600 text-center mt-4">Pasa el ratón sobre las nubes para más detalles o haz clic para explorar.</p>
+    <div id="tooltip" class="tooltip hidden"></div>
+    <script>
+      const canvas = document.getElementById('mindMap');
+      const ctx = canvas.getContext('2d');
+      const tooltip = document.getElementById('tooltip');
+
+      // Definir nodos del mapa mental
+      const nodes = [
+        { id: 1, text: 'Habilidades\nComunicativas', x: 400, y: 400, width: 180, height: 100, color: '#1e40af', links: [2, 3, 4], isMain: true, tooltip: 'Claves para una comunicación efectiva' },
+        { id: 2, text: 'Oratoria', x: 200, y: 200, width: 120, height: 70, color: '#3b82f6', links: [], url: 'oratoria.html', tooltip: 'Habla en público con confianza' },
+        { id: 3, text: 'Gestión del\nTiempo', x: 600, y: 200, width: 120, height: 70, color: '#10b981', links: [], url: 'gestion-tiempo.html', tooltip: 'Respeta los tiempos de habla' },
+        { id: 4, text: 'Habilidades\nGenerales', x: 400, y: 100, width: 120, height: 70, color: '#f59e0b', links: [], url: 'habilidades-generales.html', tooltip: 'Conecta con tu audiencia' }
+      ];
+
+      // Función para dibujar una nube
+      function drawCloud(x, y, width, height, color) {
+        ctx.beginPath();
+        const gradient = ctx.createLinearGradient(x - width / 2, y, x + width / 2, y);
+        gradient.addColorStop(0, '#fff');
+        gradient.addColorStop(1, color);
+
+        // Dibujar forma de nube con curvas Bézier
+        const scale = 0.3;
+        ctx.moveTo(x - width / 2, y);
+        ctx.bezierCurveTo(
+          x - width / 2, y - height * scale,
+          x - width * 0.3, y - height * 0.8,
+          x, y - height * 0.8
+        );
+        ctx.bezierCurveTo(
+          x + width * 0.3, y - height * 0.8,
+          x + width / 2, y - height * scale,
+          x + width / 2, y
+        );
+        ctx.bezierCurveTo(
+          x + width / 2, y + height * scale,
+          x + width * 0.3, y + height * 0.6,
+          x, y + height * 0.6
+        );
+        ctx.bezierCurveTo(
+          x - width * 0.3, y + height * 0.6,
+          x - width / 2, y + height * scale,
+          x - width / 2, y
+        );
+        ctx.closePath();
+
+        ctx.fillStyle = gradient;
+        ctx.fill();
+        ctx.strokeStyle = '#fff';
+        ctx.lineWidth = 2;
+        ctx.stroke();
+      }
+
+      // Dibujar mapa mental
+      function drawMindMap() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+        // Dibujar ramas curvas
+        nodes.forEach(node => {
+          node.links.forEach(linkId => {
+            const target = nodes.find(n => n.id === linkId);
+            ctx.beginPath();
+            ctx.moveTo(400, 400); // Centro del nodo principal
+            ctx.quadraticCurveTo(400, 300, target.x, target.y);
+            ctx.strokeStyle = node.color;
+            ctx.lineWidth = 4;
+            ctx.lineCap = 'round';
+            ctx.stroke();
+          });
+        });
+
+        // Dibujar nubes
+        nodes.forEach(node => {
+          const offset = Math.sin(Date.now() * 0.002 + node.id) * 2;
+          drawCloud(node.x, node.y + offset, node.width, node.height, node.color);
+
+          // Texto
+          ctx.fillStyle = '#000';
+          ctx.font = node.isMain ? 'bold 18px Poppins' : '14px Poppins';
+          ctx.textAlign = 'center';
+          ctx.textBaseline = 'middle';
+          node.text.split('\n').forEach((line, i) => {
+            ctx.fillText(line, node.x, node.y + offset + (i - 0.5) * 15);
+          });
+        });
+      }
+
+      // Animación
+      function animate() {
+        drawMindMap();
+        requestAnimationFrame(animate);
+      }
+
+      // Manejar clics
+      canvas.addEventListener('click', (e) => {
+        const rect = canvas.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        nodes.forEach(node => {
+          const dx = x - node.x;
+          const dy = y - node.y;
+          if (Math.abs(dx) < node.width / 2 && Math.abs(dy) < node.height / 2 && node.url) {
+            window.location.href = node.url;
+          }
+        });
+      });
+
+      // Manejar tooltips
+      canvas.addEventListener('mousemove', (e) => {
+        const rect = canvas.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        let tooltipText = '';
+        let showTooltip = false;
+
+        nodes.forEach(node => {
+          const dx = x - node.x;
+          const dy = y - node.y;
+          if (Math.abs(dx) < node.width / 2 && Math.abs(dy) < node.height / 2) {
+            showTooltip = true;
+            tooltipText = node.tooltip;
+            tooltip.style.left = `${e.clientX + 10}px`;
+            tooltip.style.top = `${e.clientY + 10}px`;
+          }
+        });
+
+        if (showTooltip) {
+          tooltip.textContent = tooltipText;
+          tooltip.classList.remove('hidden');
+        } else {
+          tooltip.classList.add('hidden');
+        }
+      });
+
+      animate();
+    </script>
+  </section>
+
+  <!-- Secciones de Navegación a Subpáginas -->
+  <section class="container mx-auto py-12 px-4">
+    <h2 class="text-3xl font-semibold text-gray-800 mb-6 text-center">Explora Más</h2>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <a href="oratoria.html" class="bg-white p-6 rounded-lg shadow-lg hover-scale text-center bg-gradient-to-r from-blue-100 to-blue-200">
+        <svg class="w-12 h-12 mx-auto mb-4 text-blue-600 pulse" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path></svg>
+        <h3 class="text-xl font-bold text-gray-800">Oratoria</h3>
+        <p class="text-gray-600">Habla en público con confianza y claridad.</p>
+      </a>
+      <a href="gestion-tiempo.html" class="bg-white p-6 rounded-lg shadow-lg hover-scale text-center bg-gradient-to-r from-green-100 to-green-200">
+        <svg class="w-12 h-12 mx-auto mb-4 text-green-600 pulse" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+        <h3 class="text-xl font-bold text-gray-800">Gestión del Tiempo</h3>
+        <p class="text-gray-600">Respeta los tiempos de habla en cualquier contexto.</p>
+      </a>
+      <a href="habilidades-generales.html" class="bg-white p-6 rounded-lg shadow-lg hover-scale text-center bg-gradient-to-r from-yellow-100 to-yellow-200">
+        <svg class="w-12 h-12 mx-auto mb-4 text-yellow-600 pulse" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8h2a2 2 0 012 2v6a2 2 0 01-2 2h-2m-4-8v8m-4-8h2a2 2 0 012 2v6a2 2 0 01-2 2h-2"></path></svg>
+        <h3 class="text-xl font-bold text-gray-800">Habilidades Generales</h3>
+        <p class="text-gray-600">Conecta con tu audiencia de forma efectiva.</p>
+      </a>
+    </div>
+  </section>
+
+  <!-- Pie de Página -->
+  <footer class="bg-blue-600 text-white text-center py-6 relative z-10">
+    <div class="container mx-auto">
+      <p>© 2025 Jacsnoalone. Todos los derechos reservados.</p>
+      <div class="mt-4">
+        <a href="contacto.html" class="text-gray-200 hover:text-white mx-2">Contáctanos</a>
+        <a href="privacidad.html" class="text-gray-200 hover:text-white mx-2">Política de Privacidad</a>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>
