@@ -1,0 +1,170 @@
+body {
+    font-family: 'Poppins', sans-serif;
+    margin: 0;
+    padding: 0;
+    background: linear-gradient(135deg, #e8ecef, #ced4da);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+    overflow-x: hidden;
+    position: relative;
+}
+.logo-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    animation: fadeOut 1s ease-out 2s forwards;
+}
+.logo {
+    font-size: 5em;
+    font-weight: bold;
+    color: #ffffff;
+    text-shadow: 0 0 15px #fd7e14, 0 0 30px #fd7e14;
+    animation: logoPop 1.5s ease-out;
+}
+header {
+    background: #343a40;
+    color: #ffffff;
+    width: 100%;
+    text-align: center;
+    padding: 1em 0;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 900;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+    opacity: 0;
+    animation: bounceIn 1s ease-out 2.5s forwards;
+}
+header h1 {
+    margin: 0;
+    font-size: 2.5em;
+    background: linear-gradient(45deg, #fd7e14, #dc3545);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+header p {
+    margin: 0.5em 0 1em 0;
+    font-size: 1.2em;
+    color: #ffffff;
+    font-weight: 500;
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+}
+.container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2em;
+    padding: 2em;
+    max-width: 1200px;
+    width: 100%;
+    box-sizing: border-box;
+    margin-top: 120px; /* Espacio para el header fijo */
+    animation: fadeIn 1s ease-out 3s forwards;
+    opacity: 0;
+}
+.button {
+    background: #fd7e14;
+    color: white;
+    padding: 2em;
+    text-align: center;
+    text-decoration: none;
+    font-size: 1.6em;
+    font-weight: bold;
+    border-radius: 12px;
+    position: relative;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+    animation: popIn 0.8s ease-out forwards;
+    animation-delay: calc(0.2s * var(--i) + 2.5s);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+.button i {
+    font-size: 1.5em;
+}
+.button:hover {
+    transform: translateY(-10px) rotate(3deg);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.3);
+}
+.button::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.3);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+.button:hover::after {
+    opacity: 1;
+    animation: shimmer 0.5s ease;
+}
+.button:nth-child(1) { background: #fd7e14; --i: 1; }
+.button:nth-child(1):hover { background: #e86c12; }
+.button:nth-child(2) { background: #20c997; --i: 2; }
+.button:nth-child(2):hover { background: #1aab80; }
+.button:nth-child(3) { background: #dc3545; --i: 3; }
+.button:nth-child(3):hover { background: #c12739; }
+.button:nth-child(4) { background: #ffc107; --i: 4; }
+.button:nth-child(4):hover { background: #e0a800; }
+.button:nth-child(5) { background: #17a2b8; --i: 5; }
+.button:nth-child(5):hover { background: #138496; }
+.button:nth-child(6) { background: #6610f2; --i: 6; }
+.button:nth-child(6):hover { background: #570dc9; }
+@keyframes logoPop {
+    0% { transform: scale(0); opacity: 0; }
+    80% { transform: scale(1.2); opacity: 1; }
+    100% { transform: scale(1); opacity: 1; }
+}
+@keyframes fadeOut {
+    to { opacity: 0; visibility: hidden; }
+}
+@keyframes bounceIn {
+    0% { transform: scale(0.8); opacity: 0; }
+    60% { transform: scale(1.1); opacity: 1; }
+    100% { transform: scale(1); opacity: 1; }
+}
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+@keyframes popIn {
+    0% { transform: scale(0); opacity: 0; }
+    80% { transform: scale(1.1); opacity: 1; }
+    100% { transform: scale(1); }
+}
+@keyframes shimmer {
+    0% { transform: translateX(-100%); }
+    100% { transform: translateX(100%); }
+}
+@media (max-width: 600px) {
+    .logo {
+        font-size: 3em;
+    }
+    .button {
+        font-size: 1.3em;
+        padding: 1.5em;
+    }
+    header h1 {
+        font-size: 1.8em;
+    }
+    header p {
+        font-size: 1em;
+    }
+    .container {
+        margin-top: 100px;
+    }
+}
