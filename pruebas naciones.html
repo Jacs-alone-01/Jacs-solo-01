@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pruebas Nacionales - JACSNOALONE</title>
+    <link rel="stylesheet" href="pruebas naciones.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@700&family=Roboto:wght@400&display=swap" rel="stylesheet">
+    
+</head>
+<body>
+    <div id="logo">Jonny Network</div>
+    <canvas id="canvas"></canvas>
+    <div id="test-container">
+        <div id="selector">
+            <select id="nivel">
+                <option value="">Selecciona un nivel</option>
+                <option value="basica">4to secundaria</option>
+                <option value="adultos">5to secundaria</option>
+                <option value="media">6to secundaria</option>
+            </select>
+            <select id="area">
+                <option value="">Selecciona un área</option>
+                <option value="lengua">Lengua Española</option>
+                <option value="matematica">Matemática</option>
+                <option value="sociales">Ciencias Sociales</option>
+                <option value="naturales">Ciencias de la Naturaleza</option>
+            </select>
+        </div>
+        <div class="question" id="q1">
+            <h3 id="q1-text"></h3>
+            <div class="option" data-value="1"></div>
+            <div class="option" data-value="2"></div>
+            <div class="option" data-value="3"></div>
+            <div class="option" data-value="4"></div>
+        </div>
+        <div class="question" id="q2">
+            <h3 id="q2-text"></h3>
+            <div class="option" data-value="1"></div>
+            <div class="option" data-value="2"></div>
+            <div class="option" data-value="3"></div>
+            <div class="option" data-value="4"></div>
+        </div>
+        <div class="question" id="q3">
+            <h3 id="q3-text"></h3>
+            <div class="option" data-value="1"></div>
+            <div class="option" data-value="2"></div>
+            <div class="option" data-value="3"></div>
+            <div class="option" data-value="4"></div>
+        </div>
+        <div class="question" id="q4">
+            <h3 id="q4-text"></h3>
+            <div class="option" data-value="1"></div>
+            <div class="option" data-value="2"></div>
+            <div class="option" data-value="3"></div>
+            <div class="option" data-value="4"></div>
+        </div>
+        <div class="question" id="q5">
+            <h3 id="q5-text"></h3>
+            <div class="option" data-value="1"></div>
+            <div class="option" data-value="2"></div>
+            <div class="option" data-value="3"></div>
+            <div class="option" data-value="4"></div>
+        </div>
+        <div>
+            <button id="prev-btn" style="display:none">Anterior</button>
+            <button id="next-btn">Siguiente</button>
+            <button id="submit-btn" style="display:none">Evaluar</button>
+        </div>
+        <div id="result"></div>
+    </div>
+    <script>
+        const canvas = document.getElementById('canvas');
+        const ctx = canvas.getContext('2d');
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+        const particles = [];
+        class Particle {
+            constructor() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.size = Math.random() * 5 + 1;
+                this.speedX = Math.random() * 3 - 1.5;
+                this.speedY = Math.random() * 3 - 1.5;
+            }
+            update() {
+                this.x += this.speedX;
+                this.y += this.speedY;
+                if (this.size > 0.2) this.size -= 0.1;
+                if (this.x < 0 || this.x > canvas.width) this.speedX *= -1;
+                if (this.y < 0 || this.y > canvas.height) this.speedY *= -1;
+            }
+            draw() {
+                ctx.fillStyle = 'rgba(255, 255, 255, 0.8)';
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fill();
+            }
+        }
+        function init() {
+            for (let i = 0; i < 100; i++) {
+                particles.push(new Particle());
+            }
+        }
+        function animate() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            particles.forEach((particle, index) => {
+                particle.update();
+                particle.draw();
+                if (particle.size <= 0.2) {
+                    particles.splice(index, 1);
+                    particles.push(new Particle());
+                }
+            });
+            requestAnimationFrame(animate);
+        }
+        init();
+        animate();
+        window.addEventListener('resize', () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        });
+
+        const questions = {
+            basica: {
+                lengua: [
+                    {
+                        text: "1. ¿Cuál es el propósito principal de un texto expositivo?",
+                        options: ["Narrar una historia", "Describir un lugar", "Explicar o informar", "Persuadir al lector"],
+                        correct: 2
+                    },
+                    {
+                        text: "2. Identifica el sinónimo de 'rápido' en este contexto: 'El río fluye rápido'.",
+                        options: ["Lento", "Veloz", "Tranquilo", "Pesado"],
+                        correct: 1
+                    },
+                    {
+                        text: "3. ¿Qué es un sustantivo?",
+                        options: ["Una acción", "Un nombre", "Una cualidad", "Un lugar"],
+                        correct: 1
+                    },
+                    {
+                        text: "4. ¿Cuál es el sujeto en la oración: 'El perro ladra fuerte'?",
+                        options: ["Ladra", "Fuerte", "El perro", "Ninguno"],
+                        correct: 2
+                    },
+                    {
+                        text: "5. ¿Qué tipo de palabra es 'rápidamente'?",
+                        options: ["Adjetivo", "Adverbio", "Sustantivo", "Verbo"],
+                        correct: 1
+                    }
+                ],
+                matematica: [
+                    {
+                        text: "1. ¿Cuál es el resultado de 15 × (4 + 6)?",
+                        options: ["90", "150", "60", "120"],
+                        correct: 1
+                    },
+                    {
+                        text: "2. Si un triángulo tiene ángulos de 50° y 60°, ¿cuál es el tercer ángulo?",
+                        options: ["70°", "80°", "60°", "90°"],
+                        correct: 0
+                    },
+                    {
+                        text: "3. ¿Cuánto es 3/4 + 1/4?",
+                        options: ["1/2", "1", "2/4", "3/8"],
+                        correct: 1
+                    },
+                    {
+                        text: "4. ¿Cuál es el perímetro de un rectángulo de 5 cm por 3 cm?",
+                        options: ["15 cm", "16 cm", "8 cm", "10 cm"],
+                        correct: 1
+                    },
+                    {
+                        text: "5. ¿Qué número es divisible por 2 y 3?",
+                        options: ["15", "18", "21", "25"],
+                        correct: 1
+                    }
+                ],
+                sociales: [
+                    {
+                        text: "1. ¿Cuál es la capital de la República Dominicana?",
+                        options: ["Santo Domingo", "Santiago", "La Romana", "Puerto Plata"],
+                        correct: 0
+                    },
+                    {
+                        text: "2. ¿Qué evento marcó el inicio de la independencia dominicana?",
+                        options: ["Grito de Capotillo", "Batalla de las Mercedes", "Tratado de Basilea", "Guerra Restauradora"],
+                        correct: 0
+                    },
+                    {
+                        text: "3. ¿Quiénes fueron los fundadores de la Trinitaria?",
+                        options: ["Máximo Gómez", "Juan Pablo Duarte", "Pedro Santana", "Buenaventura Báez"],
+                        correct: 1
+                    },
+                    {
+                        text: "4. ¿En qué año se proclamó la independencia dominicana?",
+                        options: ["1821", "1844", "1865", "1492"],
+                        correct: 1
+                    },
+                    {
+                        text: "5. ¿Qué río marca la frontera entre República Dominicana y Haití?",
+                        options: ["Yaque del Norte", "Ozama", "Dajabón", "Artibonito"],
+                        correct: 2
+                    }
+                ],
+                naturales: [
+                    {
+                        text: "1. ¿Qué gas es esencial para la fotosíntesis?",
+                        options: ["Oxígeno", "Nitrógeno", "Dióxido de carbono", "Hidrógeno"],
+                        correct: 2
+                    },
+                    {
+                        text: "2. ¿Qué tipo de energía se genera en una central hidroeléctrica?",
+                        options: ["Térmica", "Nuclear", "Hidráulica", "Eólica"],
+                        correct: 2
+                    },
+                    {
+                        text: "3. ¿Qué parte de la planta realiza la fotosíntesis?",
+                        options: ["Raíz", "Tallo", "Hoja", "Flor"],
+                        correct: 2
+                    },
+                    {
+                        text: "4. ¿Cuál es el estado de la materia del agua en un río?",
+                        options: ["Sólido", "Líquido", "Gas", "Plasma"],
+                        correct: 1
+                    },
+                    {
+                        text: "5. ¿Qué animal es un mamífero?",
+                        options: ["Cocodrilo", "Delfín", "Serpiente", "Tortuga"],
+                        correct: 1
+                    }
+                ]
+            },
+            adultos: {
+                lengua: [
+                    {
+                        text: "1. ¿Qué tipo de texto busca convencer al lector con argumentos?",
+                        options: ["Narrativo", "Expositivo", "Argumentativo", "Descriptivo"],
+                        correct: 2
+                    },
+                    {
+                        text: "2. ¿Cuál es el antónimo de 'austero'?",
+                        options: ["Sencillo", "Extravagante", "Rígido", "Modesto"],
+                        correct: 1
+                    },
+                    {
+                        text: "3. ¿Qué es un pronombre?",
+                        options: ["Un nombre", "Una acción", "Un sustituto de un sustantivo", "Una cualidad"],
+                        correct: 2
+                    },
+                    {
+                        text: "4. ¿Cuál es el complemento directo en: 'María compró un libro'?",
+                        options: ["María", "Compró", "Un libro", "Ninguno"],
+                        correct: 2
+                    },
+                    {
+                        text: "5. ¿Qué tipo de palabra es 'hermoso'?",
+                        options: ["Adjetivo", "Adverbio", "Sustantivo", "Verbo"],
+                        correct: 0
+                    }
+                ],
+                matematica: [
+                    {
+                        text: "1. Resuelve: 2x + 5 = 15",
+                        options: ["x = 5", "x = 10", "x = 7", "x = 4"],
+                        correct: 0
+                    },
+                    {
+                        text: "2. ¿Cuál es el área de un rectángulo de 5m x 8m?",
+                        options: ["40 m²", "13 m²", "20 m²", "48 m²"],
+                        correct: 0
+                    },
+                    {
+                        text: "3. ¿Cuánto es 2/3 de 18?",
+                        options: ["9", "12", "6", "15"],
+                        correct: 1
+                    },
+                    {
+                        text: "4. Si un ángulo mide 120°, ¿cuál es su ángulo suplementario?",
+                        options: ["60°", "90°", "30°", "45°"],
+                        correct: 0
+                    },
+                    {
+                        text: "5. ¿Cuál es el resultado de √81?",
+                        options: ["7", "8", "9", "10"],
+                        correct: 2
+                    }
+                ],
+                sociales: [
+                    {
+                        text: "1. ¿Qué tratado cedió la parte este de la isla a Francia?",
+                        options: ["Tratado de Basilea", "Tratado de Ryswick", "Tratado de París", "Tratado de Tordesillas"],
+                        correct: 0
+                    },
+                    {
+                        text: "2. ¿Quién fue el líder de la Guerra Restauradora?",
+                        options: ["Juan Pablo Duarte", "Gregorio Luperón", "Máximo Gómez", "Francisco del Rosario Sánchez"],
+                        correct: 1
+                    },
+                    {
+                        text: "3. ¿Qué país colonizó la isla de Santo Domingo primero?",
+                        options: ["Francia", "España", "Haití", "Inglaterra"],
+                        correct: 1
+                    },
+                    {
+                        text: "4. ¿En qué año terminó la Guerra Restauradora?",
+                        options: ["1844", "1865", "1821", "1492"],
+                        correct: 1
+                    },
+                    {
+                        text: "5. ¿Qué es el Merengue en el contexto dominicano?",
+                        options: ["Un baile típico", "Un plato tradicional", "Un río", "Una montaña"],
+                        correct: 0
+                    }
+                ],
+                naturales: [
+                    {
+                        text: "1. ¿Qué sistema del cuerpo humano regula las hormonas?",
+                        options: ["Nervioso", "Endocrino", "Circulatorio", "Respiratorio"],
+                        correct: 1
+                    },
+                    {
+                        text: "2. ¿Qué tipo de roca se forma por enfriamiento de magma?",
+                        options: ["Sedimentaria", "Metamórfica", "Ígnea", "Fósil"],
+                        correct: 2
+                    },
+                    {
+                        text: "3. ¿Qué gas es el más abundante en la atmósfera terrestre?",
+                        options: ["Oxígeno", "Nitrógeno", "Dióxido de carbono", "Argón"],
+                        correct: 1
+                    },
+                    {
+                        text: "4. ¿Qué órgano bombea sangre en el cuerpo humano?",
+                        options: ["Hígado", "Corazón", "Pulmón", "Riñón"],
+                        correct: 1
+                    },
+                    {
+                        text: "5. ¿Qué tipo de energía es la luz solar?",
+                        options: ["Térmica", "Química", "Radiante", "Cinética"],
+                        correct: 2
+                    }
+                ]
+            },
+            media: {
+                lengua: [
+                    {
+                        text: "1. ¿Qué figura retórica usa una comparación con 'como' o 'cual'?",
+                        options: ["Metáfora", "Símil", "Personificación", "Hipérbole"],
+                        correct: 1
+                    },
+                    {
+                        text: "2. ¿Qué tipo de oración es: 'Si estudias, aprobarás'?",
+                        options: ["Declarativa", "Condicional", "Exclamativa", "Interrogativa"],
+                        correct: 1
+                    },
+                    {
+                        text: "3. ¿Qué es una metáfora?",
+                        options: ["Una comparación directa", "Una pregunta retórica", "Una exageración", "Una repetición"],
+                        correct: 0
+                    },
+                    {
+                        text: "4. ¿Cuál es el tiempo verbal de 'había estudiado'?",
+                        options: ["Presente", "Pretérito perfecto", "Pretérito pluscuamperfecto", "Futuro"],
+                        correct: 2
+                    },
+                    {
+                        text: "5. ¿Qué tipo de texto describe las características de un objeto?",
+                        options: ["Narrativo", "Expositivo", "Descriptivo", "Argumentativo"],
+                        correct: 2
+                    }
+                ],
+                matematica: [
+                    {
+                        text: "1. Resuelve la ecuación: 3x² - 12 = 0",
+                        options: ["x = ±2", "x = ±4", "x = ±3", "x = ±6"],
+                        correct: 0
+                    },
+                    {
+                        text: "2. ¿Cuál es el volumen de un cubo de lado 4 cm?",
+                        options: ["64 cm³", "16 cm³", "48 cm³", "32 cm³"],
+                        correct: 0
+                    },
+                    {
+                        text: "3. ¿Cuál es el valor de sen(30°)?",
+                        options: ["1/2", "√3/2", "1", "0"],
+                        correct: 0
+                    },
+                    {
+                        text: "4. ¿Cuál es la pendiente de la recta y = 2x + 3?",
+                        options: ["1", "2", "3", "0"],
+                        correct: 1
+                    },
+                    {
+                        text: "5. ¿Cuánto es log₂(8)?",
+                        options: ["2", "3", "4", "8"],
+                        correct: 1
+                    }
+                ],
+                sociales: [
+                    {
+                        text: "1. ¿Qué movimiento buscó la abolición de la esclavitud?",
+                        options: ["Ilustración", "Abolicionismo", "Reformismo", "Independentismo"],
+                        correct: 1
+                    },
+                    {
+                        text: "2. ¿Qué país ocupó la República Dominicana en 1822?",
+                        options: ["España", "Francia", "Haití", "Estados Unidos"],
+                        correct: 2
+                    },
+                    {
+                        text: "3. ¿Qué líder dominicano es conocido como el 'Padre de la Patria'?",
+                        options: ["Gregorio Luperón", "Juan Pablo Duarte", "Máximo Gómez", "Pedro Santana"],
+                        correct: 1
+                    },
+                    {
+                        text: "4. ¿Qué evento marcó el fin de la ocupación haitiana?",
+                        options: ["Independencia de 1844", "Guerra Restauradora", "Tratado de Basilea", "Grito de Capotillo"],
+                        correct: 0
+                    },
+                    {
+                        text: "5. ¿Qué recurso natural es abundante en la Sierra de Bahoruco?",
+                        options: ["Oro", "Bauxita", "Cobre", "Carbón"],
+                        correct: 1
+                    }
+                ],
+                naturales: [
+                    {
+                        text: "1. ¿Qué molécula lleva la información genética?",
+                        options: ["ARN", "ADN", "Proteína", "Lípido"],
+                        correct: 1
+                    },
+                    {
+                        text: "2. ¿Qué fenómeno explica el movimiento de las placas tectónicas?",
+                        options: ["Erosión", "Deriva continental", "Sedimentación", "Meteorización"],
+                        correct: 1
+                    },
+                    {
+                        text: "3. ¿Qué tipo de enlace une los átomos en una molécula de agua?",
+                        options: ["Iónico", "Covalente", "Metálico", "Hidrógeno"],
+                        correct: 1
+                    },
+                    {
+                        text: "4. ¿Qué proceso celular produce energía en las mitocondrias?",
+                        options: ["Fotosíntesis", "Respiración celular", "División celular", "Síntesis de proteínas"],
+                        correct: 1
+                    },
+                    {
+                        text: "5. ¿Qué capa de la Tierra es líquida?",
+                        options: ["Corteza", "Manto externo", "Manto interno", "Núcleo interno"],
+                        correct: 1
+                    }
+                ]
+            }
+        };
+
+        const nivelSelect = document.getElementById('nivel');
+        const areaSelect = document.getElementById('area');
+        const questionsDivs = document.querySelectorAll('.question');
+        const prevBtn = document.getElementById('prev-btn');
+        const nextBtn = document.getElementById('next-btn');
+        const submitBtn = document.getElementById('submit-btn');
+        const resultDiv = document.getElementById('result');
+        let currentQuestion = 0;
+        let selectedQuestions = [];
+        let score = 0;
+
+        function loadQuestion(index) {
+            questionsDivs.forEach((div, i) => {
+                div.classList.toggle('active', i === index);
+                if (i === index) {
+                    const q = selectedQuestions[index];
+                    div.querySelector('h3').textContent = q.text;
+                    div.querySelectorAll('.option').forEach((opt, j) => {
+                        opt.textContent = q.options[j];
+                        opt.dataset.value = j;
+                        opt.classList.remove('selected');
+                        opt.style.background = 'linear-gradient(45deg, #2a5298, #3b82f6)';
+                        opt.dataset.selected = 'false';
+                    });
+                }
+            });
+            prevBtn.style.display = index === 0 ? 'none' : 'inline-block';
+            nextBtn.style.display = index === selectedQuestions.length - 1 ? 'none' : 'inline-block';
+            submitBtn.style.display = index === selectedQuestions.length - 1 ? 'inline-block' : 'none';
+        }
+
+        function updateQuestions() {
+            const nivel = nivelSelect.value;
+            const area = areaSelect.value;
+            if (nivel && area) {
+                selectedQuestions = questions[nivel][area];
+                currentQuestion = 0;
+                score = 0;
+                resultDiv.style.display = 'none';
+                loadQuestion(currentQuestion);
+                questionsDivs.forEach((div, i) => {
+                    div.querySelectorAll('.option').forEach((opt, j) => {
+                        opt.style.animationDelay = `${j * 0.1}s`;
+                        opt.addEventListener('click', () => {
+                            div.querySelectorAll('.option').forEach(o => {
+                                o.classList.remove('selected');
+                                o.style.background = 'linear-gradient(45deg, #2a5298, #3b82f6)';
+                                o.dataset.selected = 'false';
+                            });
+                            opt.classList.add('selected');
+                            opt.dataset.selected = 'true';
+                        });
+                    });
+                });
+            }
+        }
+
+        nivelSelect.addEventListener('change', updateQuestions);
+        areaSelect.addEventListener('change', updateQuestions);
+
+        prevBtn.addEventListener('click', () => {
+            if (currentQuestion > 0) {
+                currentQuestion--;
+                loadQuestion(currentQuestion);
+            }
+        });
+
+        nextBtn.addEventListener('click', () => {
+            if (currentQuestion < selectedQuestions.length - 1) {
+                currentQuestion++;
+                loadQuestion(currentQuestion);
+            }
+        });
+
+        submitBtn.addEventListener('click', () => {
+            score = 0;
+            questionsDivs.forEach((div, i) => {
+                const selected = div.querySelector('.option[data-selected="true"]');
+                if (selected && parseInt(selected.dataset.value) === selectedQuestions[i].correct) {
+                    score++;
+                }
+            });
+            resultDiv.style.display = 'block';
+            const percentage = (score / selectedQuestions.length) * 100;
+            resultDiv.innerHTML = `Tu puntaje: ${score}/${selectedQuestions.length} (${percentage.toFixed(2)}%)<br>` +
+                (percentage >= 70 ? '¡Aprobaste! Sigue practicando.' : 'No aprobaste. Intenta de nuevo.');
+        });
+    </script>
+</body>
+</html> 
