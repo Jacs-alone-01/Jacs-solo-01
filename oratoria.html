@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="oratoria.css">
+  <title>Oratoria - Jacsnoalone</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+ 
+</head>
+<body class="bg-gradient-to-br from-blue-50 to-gray-100 font-sans relative">
+  <!-- Fondo Animado -->
+  <canvas id="backgroundCanvas"></canvas>
+  <script>
+    const bgCanvas = document.getElementById('backgroundCanvas');
+    const bgCtx = bgCanvas.getContext('2d');
+    bgCanvas.width = window.innerWidth;
+    bgCanvas.height = window.innerHeight;
+
+    const particles = [];
+    for (let i = 0; i < 50; i++) {
+      particles.push({
+        x: Math.random() * bgCanvas.width,
+        y: Math.random() * bgCanvas.height,
+        radius: Math.random() * 3 + 1,
+        vx: Math.random() * 0.5 - 0.25,
+        vy: Math.random() * 0.5 - 0.25
+      });
+    }
+
+    function animateBackground() {
+      bgCtx.clearRect(0, 0, bgCanvas.width, bgCanvas.height);
+      particles.forEach(p => {
+        p.x += p.vx;
+        p.y += p.vy;
+        if (p.x < 0 || p.x > bgCanvas.width) p.vx *= -1;
+        if (p.y < 0 || p.y > bgCanvas.height) p.vy *= -1;
+
+        bgCtx.beginPath();
+        bgCtx.arc(p.x, p.y, p.radius, 0, 2 * Math.PI);
+        bgCtx.fillStyle = 'rgba(59, 130, 246, 0.7)';
+        bgCtx.fill();
+      });
+      requestAnimationFrame(animateBackground);
+    }
+    animateBackground();
+  </script>
+
+  <!-- Menú Circular Flotante -->
+  <div class="fixed top-4 right-4 z-20">
+    <div class="relative">
+      <button id="menuToggle" class="bg-blue-600 text-white p-4 rounded-full shadow-lg pulse" aria-label="Abrir menú de navegación">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+      </button>
+      <div id="menuItems" class="hidden absolute top-12 right-0 flex flex-col space-y-2">
+        <a href="index.html" class="menu-button bg-blue-500 text-white p-3 rounded-full shadow-md flex items-center">
+          <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path></svg>
+          Inicio
+        </a>
+        <a href="consejos-comunicacion.html" class="menu-button bg-blue-500 text-white p-3 rounded-full shadow-md flex items-center">
+          <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8h2a2 2 0 012 2v6a2 2 0 01-2 2h-2m-4-8v8m-4-8h2a2 2 0 012 2v6a2 2 0 01-2 2h-2"></path></svg>
+          Consejos de Comunicación
+        </a>
+        <a href="oratoria.html" class="menu-button bg-blue-600 text-white p-3 rounded-full shadow-md flex items-center">
+          <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path></svg>
+          Oratoria
+        </a>
+        <a href="gestion-tiempo.html" class="menu-button bg-blue-500 text-white p-3 rounded-full shadow-md flex items-center">
+          <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+          Gestión del Tiempo
+        </a>
+        <a href="habilidades-generales.html" class="menu-button bg-blue-500 text-white p-3 rounded-full shadow-md flex items-center">
+          <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8h2a2 2 0 012 2v6a2 2 0 01-2 2h-2m-4-8v8m-4-8h2a2 2 0 012 2v6a2 2 0 01-2 2h-2"></path></svg>
+          Habilidades Generales
+        </a>
+        <a href="contacto.html" class="menu-button bg-blue-500 text-white p-3 rounded-full shadow-md flex items-center">
+          <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
+          Contacto
+        </a>
+      </div>
+    </div>
+    <script>
+      document.getElementById('menuToggle').addEventListener('click', () => {
+        const menuItems = document.getElementById('menuItems');
+        menuItems.classList.toggle('hidden');
+      });
+    </script>
+  </div>
+
+  <!-- Encabezado -->
+  <header class="text-center py-12">
+    <div class="container mx-auto">
+      <h1 class="text-4xl font-bold text-blue-800 mb-4">Mejora tu Oratoria</h1>
+      <p class="text-lg text-gray-600">Consejos prácticos para hablar en público con confianza y claridad.</p>
+    </div>
+  </header>
+
+  <!-- Línea de Tiempo (Corregida) -->
+  <section class="container mx-auto py-12 px-4">
+    <h2 class="text-3xl font-semibold text-gray-800 mb-8 text-center">Pasos para una Oratoria Exitosa</h2>
+    <div class="relative max-w-3xl mx-auto">
+      <div class="absolute left-1/2 transform -translate-x-1/2 h-full w-1 bg-blue-600"></div>
+      <div class="space-y-12">
+        <div class="timeline-item bg-white p-6 rounded-lg shadow-lg flex items-center w-full md:w-5/12 md:mr-auto bg-gradient-to-r from-blue-100 to-blue-200">
+          <div class="w-12 h-12 bg-blue-600 rounded-full flex items-center justify-center text-white font-bold mr-4 pulse">1</div>
+          <div>
+            <h3 class="text-xl font-bold text-gray-800">Prepárate Bien</h3>
+            <p class="text-gray-600">Investiga tu tema y estructura tu discurso con una introducción, desarrollo y conclusión clara.</p>
+          </div>
+        </div>
+        <div class="timeline-item bg-white p-6 rounded-lg shadow-lg flex items-center w-full md:w-5/12 md:ml-auto bg-gradient-to-r from-blue-100 to-blue-200">
+          <div class="w-12 h-12 bg-blue-600 rounded-full flex items-center justify-center text-white font-bold mr-4 pulse">2</div>
+          <div>
+            <h3 class="text-xl font-bold text-gray-800">Practica la Articulación</h3>
+            <p class="text-gray-600">Habla despacio y pronuncia cada palabra claramente. Usa trabalenguas para mejorar tu dicción.</p>
+          </div>
+        </div>
+        <div class="timeline-item bg-white p-6 rounded-lg shadow-lg flex items-center w-full md:w-5/12 md:mr-auto bg-gradient-to-r from-blue-100 to-blue-200">
+          <div class="w-12 h-12 bg-blue-600 rounded-full flex items-center justify-center text-white font-bold mr-4 pulse">3</div>
+          <div>
+            <h3 class="text-xl font-bold text-gray-800">Usa Pausas Estratégicas</h3>
+            <p class="text-gray-600">Pausa después de puntos clave para dar énfasis y permitir que la audiencia procese tu mensaje.</p>
+          </div>
+        </div>
+        <div class="timeline-item bg-white p-6 rounded-lg shadow-lg flex items-center w-full md:w-5/12 md:ml-auto bg-gradient-to-r from-blue-100 to-blue-200">
+          <div class="w-12 h-12 bg-blue-600 rounded-full flex items-center justify-center text-white font-bold mr-4 pulse">4</div>
+          <div>
+            <h3 class="text-xl font-bold text-gray-800">Varía tu Tono</h3>
+            <p class="text-gray-600">Modula tu voz para transmitir emociones y mantener a la audiencia interesada.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Pie de Página -->
+  <footer class="bg-blue-600 text-white text-center py-6 relative z-10">
+    <div class="container mx-auto">
+      <p>© 2025 Jacsnoalone. Todos los derechos reservados.</p>
+      <div class="mt-4">
+        <a href="contacto.html" class="text-gray-200 hover:text-white mx-2">Contáctanos</a>
+        <a href="privacidad.html" class="text-gray-200 hover:text-white mx-2">Política de Privacidad</a>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>
