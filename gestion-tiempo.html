@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gestión del Tiempo - Jacsnoalone</title>
+  <link rel="stylesheet" href="gestion-tiempo.css">
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+</head>
+<body class="bg-gradient-to-br from-blue-50 to-gray-100 font-sans relative">
+  <!-- Fondo Animado -->
+  <canvas id="backgroundCanvas"></canvas>
+  <script>
+    const bgCanvas = document.getElementById('backgroundCanvas');
+    const bgCtx = bgCanvas.getContext('2d');
+    bgCanvas.width = window.innerWidth;
+    bgCanvas.height = window.innerHeight;
+
+    const particles = [];
+    for (let i = 0; i < 50; i++) {
+      particles.push({
+        x: Math.random() * bgCanvas.width,
+        y: Math.random() * bgCanvas.height,
+        radius: Math.random() * 3 + 1,
+        vx: Math.random() * 0.5 - 0.25,
+        vy: Math.random() * 0.5 - 0.25
+      });
+    }
+
+    function animateBackground() {
+      bgCtx.clearRect(0, 0, bgCanvas.width, bgCanvas.height);
+      particles.forEach(p => {
+        p.x += p.vx;
+        p.y += p.vy;
+        if (p.x < 0 || p.x > bgCanvas.width) p.vx *= -1;
+        if (p.y < 0 || p.y > bgCanvas.height) p.vy *= -1;
+
+        bgCtx.beginPath();
+        bgCtx.arc(p.x, p.y, p.radius, 0, 2 * Math.PI);
+        bgCtx.fillStyle = 'rgba(59, 130, 246, 0.7)';
+        bgCtx.fill();
+      });
+      requestAnimationFrame(animateBackground);
+    }
+    animateBackground();
+  </script>
+
+  <!-- Menú Circular Flotante -->
+  <div class="fixed top-4 right-4 z-20">
+    <div class="relative">
+      <button id="menuToggle" class="bg-blue-600 text-white p-4 rounded-full shadow-lg pulse" aria-label="Abrir menú de navegación">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+      </button>
+      <div id="menuItems" class="hidden absolute top-12 right-0 flex flex-col space-y-2">
+        <a href="index.html" class="menu-button bg-blue-500 text-white p-3 rounded-full shadow-md flex items-center">
+          <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path></svg>
+          Inicio
+        </a>
+        <a href="consejos-comunicacion.html" class="menu-button bg-blue-500 text-white p-3 rounded-full shadow-md flex items-center">
+          <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8h2a2 2 0 012 2v6a2 2 0 01-2 2h-2m-4-8v8m-4-8h2a2 2 0 012 2v6a2 2 0 01-2 2h-2"></path></svg>
+          Consejos de Comunicación
+        </a>
+        <a href="oratoria.html" class="menu-button bg-blue-500 text-white p-3 rounded-full shadow-md flex items-center">
+          <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path></svg>
+          Oratoria
+        </a>
+        <a href="gestion-tiempo.html" class="menu-button bg-blue-600 text-white p-3 rounded-full shadow-md flex items-center">
+          <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+          Gestión del Tiempo
+        </a>
+        <a href="habilidades-generales.html" class="menu-button bg-blue-500 text-white p-3 rounded-full shadow-md flex items-center">
+          <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8h2a2 2 0 012 2v6a2 2 0 01-2 2h-2m-4-8v8m-4-8h2a2 2 0 012 2v6a2 2 0 01-2 2h-2"></path></svg>
+          Habilidades Generales
+        </a>
+        <a href="contacto.html" class="menu-button bg-blue-500 text-white p-3 rounded-full shadow-md flex items-center">
+          <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
+          Contacto
+        </a>
+      </div>
+    </div>
+    <script>
+      document.getElementById('menuToggle').addEventListener('click', () => {
+        const menuItems = document.getElementById('menuItems');
+        menuItems.classList.toggle('hidden');
+      });
+    </script>
+  </div>
+
+  <!-- Encabezado -->
+  <header class="text-center py-12">
+    <div class="container mx-auto">
+      <h1 class="text-4xl font-bold text-blue-800 mb-4">Gestiona tu Tiempo de Habla</h1>
+      <p class="text-lg text-gray-600">Aprende a ser puntual y respetar los tiempos en tus intervenciones.</p>
+    </div>
+  </header>
+
+  <!-- Consejos -->
+  <section class="container mx-auto py-12 px-4">
+    <h2 class="text-3xl font-semibold text-gray-800 mb-8 text-center">Consejos Clave</h2>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div class="bg-white p-6 rounded-lg shadow-lg hover-scale bg-gradient-to-r from-green-100 to-green-200">
+        <svg class="w-10 h-10 text-green-600 mb-4 pulse" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+        <h3 class="text-xl font-bold text-gray-800">Planifica tu Tiempo</h3>
+        <p class="text-gray-600">Divide tu discurso en secciones y asigna tiempos específicos. Usa un cronómetro para practicar.</p>
+      </div>
+      <div class="bg-white p-6 rounded-lg shadow-lg hover-scale bg-gradient-to-r from-green-100 to-green-200">
+        <svg class="w-10 h-10 text-green-600 mb-4 pulse" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
+        <h3 class="text-xl font-bold text-gray-800">Sé Conciso</h3>
+        <p class="text-gray-600">Elimina palabras de relleno y enfócate en el mensaje principal para mantenerte dentro del tiempo.</p>
+      </div>
+      <div class="bg-white p-6 rounded-lg shadow-lg hover-scale bg-gradient-to-r from-green-100 to-green-200">
+        <svg class="w-10 h-10 text-green-600 mb-4 pulse" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path></svg>
+        <h3 class="text-xl font-bold text-gray-800">Observa a tu Audiencia</h3>
+        <p class="text-gray-600">Detecta señales de inquietud para ajustar tu ritmo y resumir si es necesario.</p>
+      </div>
+      <div class="bg-white p-6 rounded-lg shadow-lg hover-scale bg-gradient-to-r from-green-100 to-green-200">
+        <svg class="w-10 h-10 text-green-600 mb-4 pulse" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a2 2 0 00-2-2h-3m-10 0H4a2 2 0 00-2 2v2h5m5-18v18m-5-18v18"></path></svg>
+        <h3 class="text-xl font-bold text-gray-800">Respeta a los Demás</h3>
+        <p class="text-gray-600">En debates o reuniones, respeta el tiempo de otros oradores y fomenta el diálogo equitativo.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Pie de Página -->
+  <footer class="bg-blue-600 text-white text-center py-6 relative z-10">
+    <div class="container mx-auto">
+      <p>© 2025 Jacsnoalone. Todos los derechos reservados.</p>
+      <div class="mt-4">
+        <a href="contacto.html" class="text-gray-200 hover:text-white mx-2">Contáctanos</a>
+        <a href="privacidad.html" class="text-gray-200 hover:text-white mx-2">Política de Privacidad</a>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>
