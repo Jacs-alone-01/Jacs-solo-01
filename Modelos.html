@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Los Programas de Impacto</title>
+  <link rel="stylesheet" href="Modelos.css">
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+  
+</head>
+<body>
+  <div id="particles-js"></div>
+  <nav>
+    <div class="logo" style="font-family: 'Orbitron', sans-serif;">Los Programas de Impacto</div>
+    <div>
+      <a href="Onu.html">Modelo ONU</a>
+      <a href="Debate.html">Debate</a>
+      <a href="Congreso.html">Congreso</a>
+      <a href="#cta">Contáctanos</a>
+    </div>
+  </nav>
+
+  <div class="hero">
+    <h1>Los Programas de Impacto</h1>
+    <p>Transforma tu futuro con Modelo ONU, Debate y Congreso Estudiantil.</p>
+  </div>
+
+  <div class="section">
+    <div class="program">
+      <h2>Modelo de Naciones Unidas</h2>
+      <p>El Modelo ONU es una simulación educativa donde los estudiantes representan a países en la ONU, discutiendo temas globales como el cambio climático, los derechos humanos y la seguridad internacional. Los participantes investigan, negocian y proponen resoluciones, desarrollando habilidades de diplomacia, oratoria y trabajo en equipo. Es una experiencia transformadora que fomenta la conciencia global y el liderazgo.</p>
+      <a href="Onu.html" class="btn">Explorar MUN</a>
+    </div>
+
+    <div class="program">
+      <h2>Debate</h2>
+      <p>El debate estudiantil es una actividad competitiva donde los participantes defienden o refutan una moción, utilizando argumentos lógicos y evidencia. Mejora el pensamiento crítico, la capacidad de hablar en público y la persuasión. Los formatos incluyen debates parlamentarios o de políticas, ideales para quienes aman los retos intelectuales.</p>
+      <a href="Debate.html" class="btn">Explorar Debate</a>
+    </div>
+
+    <div class="program">
+      <h2>Congreso Estudiantil</h2>
+      <p>Los congresos estudiantiles recrean un entorno legislativo donde los estudiantes actúan como congresistas, proponiendo y debatiendo leyes o políticas. Esta actividad fomenta el entendimiento de los procesos democráticos, el liderazgo y la colaboración, preparando a los jóvenes para ser ciudadanos activos.</p>
+      <a href="Congreso.html" class="btn">Explorar Congreso</a>
+    </div>
+  </div>
+
+  <div class="cta" id="cta">
+    <h2>¡Únete al cambio!</h2>
+    <p>Ingresa tu correo para recibir más información.</p>
+    <form action="https://formspree.io/f/xyzjkped" method="POST"></form>
+    <form>
+      <input type="email" placeholder="Tu correo electrónico" required>
+      <button type="submit" class="btn">Enviar</button>
+    </form>
+  </div>
+
+  <footer>
+    <p>Los Programas de Impacto © 2025 | Conecta con nosotros en redes sociales</p>
+  </footer>
+
+  <script>
+    particlesJS('particles-js', {
+      particles: {
+        number: { value: 80, density: { enable: true, value_area: 800 } },
+        color: { value: '#ef4444' },
+        shape: { type: 'circle' },
+        opacity: { value: 0.5, random: true },
+        size: { value: 3, random: true },
+        line_linked: { enable: true, distance: 150, color: '#ffffff', opacity: 0.4, width: 1 },
+        move: { enable: true, speed: 2, direction: 'none', random: false }
+      },
+      interactivity: {
+        detect_on: 'canvas',
+        events: { onhover: { enable: true, mode: 'repulse' }, onclick: { enable: true, mode: 'push' } },
+        modes: { repulse: { distance: 100 }, push: { particles_nb: 4 } }
+      },
+      retina_detect: true
+    });
+
+    document.querySelector('.cta form').addEventListener('submit', function(e) {
+      e.preventDefault();
+      alert('¡Gracias por tu interés! Te contactaremos pronto.');
+    });
+  </script>
+</body>
+</html>
